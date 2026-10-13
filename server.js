@@ -51,8 +51,7 @@ function writeJobs(jobs){fs.writeFileSync(DB_FILE,JSON.stringify(jobs,null,2),'u
 function auth(req,res,next){if(req.session && req.session.admin===true)return next();return res.status(401).json({error:'Pehle admin login karein.'})}
 function safeJob(j){return {id:j.id,originalName:j.originalName,customerName:j.customerName,copies:j.copies,printType:j.printType,status:j.status,createdAt:j.createdAt}}
 app.use(express.static(PUBLIC));
-app.get('/',(_req,res)=>res.sendFile(path.join(PUBLIC,'index.html')));
-app.get('/admin',(_req,res)=>res.sendFile(path.join(PUBLIC,'admin.html')));
+app.get('/',(_req,res)=>res.sendFile(path.join(ROOT, 'index.html')));
 
 app.post('/api/upload',(req,res)=>{
   upload.single('document')(req,res,err=>{
