@@ -109,4 +109,5 @@ app.post('/api/jobs/:id/print',auth,(req,res)=>{
   child.on('close',code=>{if(code!==0)return res.status(500).json({error:'Print command fail hua. Printer aur SumatraPDF check karein.'});const jobs=readJobs();const j=jobs.find(x=>x.id===job.id);if(j){j.status='Printed';j.printedAt=new Date().toISOString();writeJobs(jobs)}res.json({ok:true,status:'Printed'})});
 });
 app.use((err,_req,res,_next)=>{console.error(err);res.status(500).json({error:'Server error. Server logs check karein.'})});
+app.get('/admin.html', auth, (req, res) => res.sendFile(path.join(ROOT, 'admin.html')));
 app.listen(PORT,'0.0.0.0',()=>console.log(`CSC portal running on http://localhost:${PORT}`));
